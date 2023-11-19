@@ -3,8 +3,11 @@ package com.bilgeadam.OBS.with.spring.boot.Controller;
 import com.bilgeadam.OBS.with.spring.boot.Entity.Ders;
 import com.bilgeadam.OBS.with.spring.boot.Repository.DersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -22,14 +25,14 @@ public class DersController {
         return repository.getAll();
     }
 
-    @GetMapping(value = "/getById/{id}",produces = "application/json;charset=UTF-8")
+    @GetMapping(value = "/getById/{id}", produces = "application/json;charset=UTF-8")
     public Ders getById(@PathVariable long id) {
         System.out.println(repository.findById(id).toString());
         return repository.findById(id);
     }
 
     @DeleteMapping("deleteById/{id}")
-    public String deleteById(@PathVariable("id")long id){
+    public String deleteById(@PathVariable("id") long id) {
         boolean result = repository.deleteById(id);
         if (result)
             return "Ders Silindi !";
@@ -38,7 +41,7 @@ public class DersController {
     }
 
     @PostMapping("/save")
-    public String save(@RequestBody Ders ders){
+    public String save(@RequestBody Ders ders) {
         boolean result = repository.save(ders);
         if (result)
             return "Yeni Ders Eklendi !";
